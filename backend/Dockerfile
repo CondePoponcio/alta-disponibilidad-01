@@ -1,15 +1,10 @@
-# Soy un backend vacio :3
-FROM alpine:3.15
+FROM golang:1.18-alpine as builder
+WORKDIR /app
+COPY . .
+RUN go get -d -v
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags='-w -s -extldflags "-static"' -a -o /main .
 
-#RUN groupadd -r developers && useradd --no-log-init -r -g developers admin
+FROM scratch as app
+COPY --from=builder /main /main
 
-# -g is the GID
-RUN addgroup -g 1000 developers
-
-# -u is the UID
-# -D permits to create an user without password
-RUN adduser -u 1000 -G developers -h /home/admin -D admin
-
-USER admin
-
-CMD tail -f /dev/null
+ENTRYPOINT [ "/main" ] 

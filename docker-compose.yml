@@ -1,42 +1,29 @@
 version: "3.9"
 
 services:
-    redis:
-        image: redis:6.2.6
-        container_name: fp-cache
-        expose:
-            - 6379
-        command: ["redis-server", "--bind", "redis", "--port", "6379"]
-        volumes:
-            - ./redis/data:/var/lib/redis
-            - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
-    database:
-        image: postgres:10.5
-        container_name: fp-db
-        ports:
-            - "5432:5432"
-        env_file:
-            - db.env
-        volumes:
-            -   type: bind
-                source: ./database/init/init.sql
-                target: /docker-entrypoint-initdb.d/init.sql
     backend:
-        container_name: fp-server
-        build:
-            context: ./backend
-            dockerfile: Dockerfile
-        env_file:
-            - .env
+        build: ./backend
         volumes:
-            -   type: bind
-                source: ./backend
-                target: /home/admin/
-            
+            - ./backend:/app
+        environment:
+            - DB_USERNAME=postgres
+            - DB_PASSWORD=postgres
+            - DB_DATABASE=tarea1
+            - DB_HOST=postgres
+            - DB_PORT=5432
+        ports:
+            - 8000:8000
+        restart: always
         depends_on:
-            - database
-            - redis
-        #command: nodemon server.js
+            - postgres
+    postgres:
+        image: 'bitnami/postgresql:latest'
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRESQL_DATABASE=tarea1
+        ports:
+            - 5432:5432
     frontend:
         container_name: fp-client
         build:

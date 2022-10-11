@@ -13,7 +13,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 # Bundle app source
 RUN npm install react-scripts@3.4.1 -g 
 RUN npm install -g serve
-COPY ./package*json .
+COPY ./package*json /app/
 RUN npm ci 
 COPY . .
 RUN npm run build
