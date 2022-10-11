@@ -1,0 +1,8 @@
+.env
+db.env
+node_modules
+build
+.dockerignore
+Dockerfile
+Dockerfile.prod
+.ash_history
