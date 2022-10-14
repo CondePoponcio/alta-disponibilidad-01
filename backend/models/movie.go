@@ -2,10 +2,9 @@ package models
 
 import "gorm.io/gorm"
 
-type Review struct {
+type Movie struct {
 	gorm.Model	
 	Title		    string 	`gorm:"not null"`
 	Description     string	`gorm:"not null"`
-	IdMovie			uint	`gorm:"not null"`
-	IdUser			uint	`gorm:"not null"`
+	Gender		    string	`gorm:"not null"`
 }

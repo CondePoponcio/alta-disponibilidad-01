@@ -5,12 +5,8 @@ services:
         build: ./backend
         volumes:
             - ./backend:/app
-        environment:
-            - DB_USERNAME=postgres
-            - DB_PASSWORD=postgres
-            - DB_DATABASE=tarea1
-            - DB_HOST=postgres
-            - DB_PORT=5432
+        env_file:
+            - ./backend/.env
         ports:
             - 8000:8000
         restart: always

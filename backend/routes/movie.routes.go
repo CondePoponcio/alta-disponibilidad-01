@@ -10,64 +10,64 @@ import (
 
 )
 
-func GetReviews() http.HandlerFunc {
+func GetMovies() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var reviews []models.Review
+		var movie []models.Movie
 		db.StartConnection()
-		if err := db.DB.Find(&reviews); err.Error != nil{
+		if err := db.DB.Find(&movie); err.Error != nil{
 			fmt.Println(err.Error.Error())
 			db.CloseConnection()
 			return
 		}
 		db.CloseConnection()
-		json.NewEncoder(w).Encode(&reviews)
+		json.NewEncoder(w).Encode(&movie)
 	}
 }
 
-func GetReview() http.HandlerFunc {
+func GetMovie() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		data := mux.Vars(r)
-		var review models.Review
+		var movie models.Movie
 		db.StartConnection()
-		if err := db.DB.First(&review, data["id"]); err.Error != nil{
+		if err := db.DB.First(&movie, data["id"]); err.Error != nil{
 			fmt.Println(err.Error.Error())
 			db.CloseConnection()
 			return
 		}
 		db.CloseConnection()
-		json.NewEncoder(w).Encode(&review)
+		json.NewEncoder(w).Encode(&movie)
 	}
 }
-func CreateReview() http.HandlerFunc {
+func CreateMovie() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var review models.Review
-		if err := json.NewDecoder(r.Body).Decode(&review); err != nil{
+		var movie models.Movie
+		if err := json.NewDecoder(r.Body).Decode(&movie); err != nil{
 			fmt.Println(err)
 			return
 		}
 		db.StartConnection()
-		if err := db.DB.Create(&review); err.Error != nil{
+		if err := db.DB.Create(&movie); err.Error != nil{
 			fmt.Println(err.Error.Error())
 			db.CloseConnection()
 			return
 		}
 		db.CloseConnection()
-		json.NewEncoder(w).Encode(&review)
+		json.NewEncoder(w).Encode(&movie)
 	}
 }
-func UpdateReview() http.HandlerFunc {
+func UpdateMovie() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		data := mux.Vars(r)
-		var review models.Review
-		var newReview models.Review
+		var movie models.Movie
+		var newMovie models.Movie
 		db.StartConnection()
-		if err := db.DB.First(&review, data["id"]); err.Error != nil{
+		if err := db.DB.First(&movie, data["id"]); err.Error != nil{
 			fmt.Println(err.Error.Error())
 			db.CloseConnection()
 			return
 		}
-		json.NewDecoder(r.Body).Decode(&newReview)
-		if err := db.DB.Model(&review).Updates(&newReview); err.Error != nil{
+		json.NewDecoder(r.Body).Decode(&newMovie)
+		if err := db.DB.Model(&movie).Updates(&newMovie); err.Error != nil{
 			fmt.Println(err.Error.Error())
 			db.CloseConnection()
 			return
@@ -75,17 +75,17 @@ func UpdateReview() http.HandlerFunc {
 		db.CloseConnection()
 	}
 }
-func DeleteReview() http.HandlerFunc {
+func DeleteMovie() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		data := mux.Vars(r)
-		var review models.Review
+		var movie models.Movie
 		db.StartConnection()
-		if err := db.DB.First(&review, data["id"]); err.Error != nil{
+		if err := db.DB.First(&movie, data["id"]); err.Error != nil{
 			fmt.Println(err.Error.Error())
 			db.CloseConnection()
 			return
 		}
-		if err := db.DB.Unscoped().Delete(&review); err.Error != nil{
+		if err := db.DB.Unscoped().Delete(&movie); err.Error != nil{
 			fmt.Println(err.Error.Error())
 			db.CloseConnection()
 			return
