@@ -32,7 +32,7 @@ func CloseConnection(){
 }
 func InitDB(){
 	StartConnection()
-	DB.Migrator().DropTable(models.User{}, models.Review{}, models.Movie{})
+	DB.Migrator().DropTable(models.User{}, models.Review{}, models.Movie{}, models.Claims{})
 	DB.AutoMigrate(models.User{}, models.Review{}, models.Movie{})
 
 	user:= models.User{Username: "pame", Password: "1234"}

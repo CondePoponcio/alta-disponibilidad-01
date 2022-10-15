@@ -1,20 +1,26 @@
-package jwt
+package jwtController
 
 import (
 	"os"
 	"fmt"
-	"net/http"
 	"time"
+	"net/http"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/pame17/Arqui-Disp/models"
 )
 
 var SECRET = []byte(os.Getenv("SECRET_KEY"))
 
-func CreateJWT() (string, error) {
+func CreateJWT(id uint) (string, error) {
 
-	token := jwt.New(jwt.SigningMethodHS256)
-	claims := token.Claims.(jwt.MapClaims)
-	claims["exp"] = time.Now().Add(time.Hour).Unix()
+	claims := models.Claims{
+		IdUser: id,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(time.Hour).Unix(),
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenStr, err := token.SignedString(SECRET)
 
 	if err != nil {
