@@ -1,25 +1,49 @@
 import logo from "./logo.svg";
-import "./App.css";
+//import "./App.css";
 
-function App() {
+import React, { Fragment, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+//import Navbar from "./components/layout/Navbar";
+
+import RoutesBar from "./components/routing/RoutesBar";
+import { LOGOUT } from "./actions/types";
+
+//SASS
+import "./sass/main.scss";
+
+// Redux
+import { Provider } from "react-redux";
+import store from "./store";
+import { loadUser } from "./actions/auth";
+import setAuthToken from "./utils/setAuthToken";
+import Deny from './components/auth/Deny'
+//import './App.css';
+
+const App = () => {
+    useEffect(() => {
+        // check for token in LS
+        if (localStorage.token) {
+            setAuthToken(localStorage.token);
+        }
+        store.dispatch(loadUser());
+
+        // log user out from all tabs if they log out in one tab
+        window.addEventListener("storage", () => {
+            if (!localStorage.token) store.dispatch({ type: LOGOUT });
+        });
+    }, []);
+    
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+
+        <Provider store={store}>
+            <Router>
+                <Routes>
+                    <Route path="/permission-deny" element={<Deny />} />
+                    <Route path="/*" element={<RoutesBar />} />
+                </Routes>
+            </Router>
+        </Provider>
     );
-}
+};
 
 export default App;

@@ -1,0 +1,137 @@
+.button-principal {
+    background: #596d85;
+    border: 1px solid #40505f !important;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: "Mulish", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+    text-align: center;
+
+    color: #ffffff;
+    padding: 0.5rem;
+}
+.button-principal:hover {
+    animation: hover-principal 0.5s forwards;
+}
+.button-principal:not(:hover) {
+    animation: nohover-principal 0.5s forwards;
+    cursor: pointer;
+}
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+        margin: 10px;
+        min-width: 200px;
+    }
+    &.large {
+        button {
+            min-width: 400px !important;
+            @media screen and (min-width: 1200px) {
+                min-width: 500px !important;
+            }
+            @media screen and (max-width: 768px) {
+                min-width: 300px !important;
+            }
+        }
+    }
+    &.no-margin-top{
+        margin-top: 0px !important;
+    }
+}
+
+.button-secundario {
+    background: #ffffff;
+    /* Texto */
+
+    border: 1px solid #40505f !important;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    font-family: "Mulish", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
+
+    text-align: center;
+
+    /* Texto */
+    color: #40505f !important;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+.button-secundario:hover {
+    animation: hover-secundario 0.5s forwards;
+}
+.button-secundario:not(:hover) {
+    animation: nohover-secundario 0.5s forwards;
+    cursor: pointer;
+}
+
+@keyframes hover-principal {
+    0% {
+        background: #596d85;
+        border: 2px solid #40505f;
+        border-radius: 4px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+    100% {
+        background: #334152;
+        border: 2px solid #000000;
+        border-radius: 4px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+}
+@keyframes nohover-principal {
+    0% {
+        background: #334152;
+        border: 2px solid #000000;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    100% {
+        background: #596d85;
+        border: 2px solid #40505f;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+}
+@keyframes hover-secundario {
+    0% {
+        background: #ffffff;
+        border: 1px solid #40505f;
+        border-radius: 4px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+    100% {
+        background: #eeeeee;
+        border: 1px solid #40505f;
+        border-radius: 4px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+}
+@keyframes nohover-secundario {
+    0% {
+        background: #eeeeee;
+        border: 1px solid #40505f;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    100% {
+        background: #ffffff;
+        border: 1px solid #40505f;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+}

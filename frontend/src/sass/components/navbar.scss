@@ -1,0 +1,13 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1rem;
+    border-bottom: 2px solid rgba(175, 175, 175, 0.8);
+    align-items: center;
+    background-color: #fff;
+    height: 4rem;
+    li{
+        color: rgb(15, 63, 109);
+    }
+}

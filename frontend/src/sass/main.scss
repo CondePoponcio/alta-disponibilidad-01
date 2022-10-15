@@ -1,0 +1,203 @@
+.component {
+    background-color: red;
+}
+
+*{
+    font-family: 'Mulish', sans-serif;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+
+
+:root {
+    --main-container-padding-MTCV1: 10px 600px;
+    --main-container-backgroud-color-MTCV1: #141414;
+    --main-container-transform-on-hover-MTCV1: scale(105%);
+    --main-container-tansition-time-MTCV1: 0.2s;
+    --card-container-padding-MTCV1: 10px;
+    --card-header-font-color-MTCV1: white;
+    --card-header-font-size: 15px;
+    --card-image-height-MTCV1: 400px;
+    --card-image-top-bottom-padding-MTCV1: 10px;
+    --card-image-border-radius-MTCV1: 10px;
+    --card-title-font-color-MTCV1: white;
+    --card-title-font-size-MTCV1: 20px;
+    --card-width-MTCV1: 250px;
+  }
+  
+  * {
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  .movies-tvshow-cards-main-container {
+    padding: var(--main-container-padding-MTCV1);
+    font-family: "Inter" !important;
+    background-color: var(--main-container-backgroud-color-MTCV1);
+    min-height: 100vh;
+  }
+  
+  .movies-tvshow-cards-main-container .movies-tvshow-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .movies-tvshow-cards-main-container
+    .movies-tvshow-cards-container
+    .card-main-container {
+    padding: var(--card-container-padding-MTCV1);
+    transition: var(--main-container-tansition-time-MTCV1) ease-in-out;
+    cursor: pointer;
+  }
+  
+  .movies-tvshow-cards-main-container
+    .movies-tvshow-cards-container
+    .card-main-container:hover {
+    transform: var(--main-container-transform-on-hover-MTCV1);
+  }
+  
+  .movies-tvshow-cards-main-container
+    .movies-tvshow-cards-container
+    .card-main-container
+    .card-container {
+    position: relative;
+    width: var(--card-width-MTCV1);
+  }
+  
+  .movies-tvshow-cards-main-container
+    .movies-tvshow-cards-container
+    .card-main-container
+    .card-container
+    .card-header-container {
+    display: flex;
+    justify-content: space-between;
+    color: var(--card-header-font-color-MTCV1);
+    font-size: var(--card-header-font-size);
+  }
+  
+  .movies-tvshow-cards-main-container
+    .movies-tvshow-cards-container
+    .card-main-container
+    .card-container
+    .card-image-container {
+    width: var(--card-width-MTCV1);
+    height: var(--card-image-height-MTCV1);
+    padding: var(--card-image-top-bottom-padding-MTCV1) 0px;
+  }
+  
+  .movies-tvshow-cards-main-container
+    .movies-tvshow-cards-container
+    .card-main-container
+    .card-container
+    .card-image-container
+    .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--card-image-border-radius-MTCV1);
+  }
+  
+  .movies-tvshow-cards-main-container
+    .movies-tvshow-cards-container
+    .card-main-container
+    .card-container
+    .card-footer-container {
+    width: var(--card-width-MTCV1);
+  }
+  
+  .movies-tvshow-cards-main-container
+    .movies-tvshow-cards-container
+    .card-main-container
+    .card-container
+    .card-footer-container
+    .card-title {
+    width: var(--card-width-MTCV1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--card-title-font-color-MTCV1);
+    font-size: var(--card-title-font-size-MTCV1);
+  }
+  
+  @media screen and (max-width: 2560px) {
+    :root {
+      --main-container-padding-MTCV1: 10px 500px;
+      --card-image-height-MTCV1: 400px;
+      --card-width-MTCV1: 250px;
+      --card-title-font-size-MTCV1: 20px;
+      --card-header-font-size: 15px;
+    }
+  }
+  
+  @media screen and (max-width: 1440px) {
+    :root {
+      --main-container-padding-MTCV1: 10px 50px;
+      --card-image-height-MTCV1: 300px;
+      --card-width-MTCV1: 180px;
+      --card-title-font-size-MTCV1: 18px;
+      --card-header-font-size: 14px;
+    }
+  }
+  
+  @media screen and (max-width: 1024px) {
+    :root {
+      --main-container-padding-MTCV1: 10px 40px;
+      --card-title-font-size-MTCV1: 17px;
+      --card-header-font-size: 13px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    :root {
+      --main-container-padding-MTCV1: 10px 30px;
+    }
+  }
+  
+  @media screen and (max-width: 425px) {
+    :root {
+      --main-container-padding-MTCV1: 10px 10px;
+      --card-image-height-MTCV1: 200px;
+      --card-width-MTCV1: 130px;
+      --card-title-font-size-MTCV1: 16px;
+      --card-header-font-size: 12px;
+    }
+  }
+  
+  @media screen and (max-width: 280px) {
+    :root {
+      --main-container-padding-MTCV1: 10px 10px;
+      --card-image-height-MTCV1: 130px;
+      --card-width-MTCV1: 80px;
+      --card-title-font-size-MTCV1: 13px;
+      --card-header-font-size: 10px;
+    }
+  }
+  
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: black;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 5px;
+  }
+  
