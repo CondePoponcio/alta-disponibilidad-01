@@ -11,22 +11,19 @@ services:
             - 8000:8000
         restart: always
         depends_on:
-            - postgres
-    postgres:
-        image: 'bitnami/postgresql:latest'
+            - database
+    database:
+        image: postgres:14.5
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
-            - POSTGRESQL_DATABASE=tarea1
-        ports:
-            - 5432:5432
+            - POSTGRES_DB=tarea1
     frontend:
         container_name: fp-client
         build:
             context: ./frontend
             dockerfile: Dockerfile
             target: app
-        user: node
         volumes:
             -   type: bind
                 source: ./frontend
