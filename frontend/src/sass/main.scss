@@ -20,19 +20,21 @@ a{
 
 
 :root {
-    --main-container-padding-MTCV1: 10px 600px;
-    --main-container-backgroud-color-MTCV1: #141414;
-    --main-container-transform-on-hover-MTCV1: scale(105%);
-    --main-container-tansition-time-MTCV1: 0.2s;
-    --card-container-padding-MTCV1: 10px;
-    --card-header-font-color-MTCV1: white;
+    --main-container-padding-app-review: 10px 600px;
+    --main-container-backgroud-color-app-review: #fcfcfc;
+    --main-container-transform-on-hover-app-review: scale(105%);
+    --main-container-tansition-time-app-review: 0.2s;
+    --card-container-padding-app-review: 10px;
+    --card-container-background-color-app-review: rgb(235, 123, 79);
+    --card-container-border-radius-app-review: 8px;
+    --card-header-font-color-app-review: rgb(70, 66, 66);
     --card-header-font-size: 15px;
-    --card-image-height-MTCV1: 400px;
-    --card-image-top-bottom-padding-MTCV1: 10px;
-    --card-image-border-radius-MTCV1: 10px;
-    --card-title-font-color-MTCV1: white;
-    --card-title-font-size-MTCV1: 20px;
-    --card-width-MTCV1: 250px;
+    --card-image-height-app-review: 400px;
+    --card-image-top-bottom-padding-app-review: 10px;
+    --card-image-border-radius-app-review: 10px;
+    --card-title-font-color-app-review: white;
+    --card-title-font-size-app-review: 20px;
+    --card-width-app-review: 250px;
   }
   
   * {
@@ -41,9 +43,9 @@ a{
   }
   
   .movies-tvshow-cards-main-container {
-    padding: var(--main-container-padding-MTCV1);
+    padding: var(--main-container-padding-app-review);
     font-family: "Inter" !important;
-    background-color: var(--main-container-backgroud-color-MTCV1);
+    background-color: var(--main-container-backgroud-color-app-review);
     min-height: 100vh;
   }
   
@@ -52,20 +54,23 @@ a{
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
+    gap: 1rem;
   }
   
   .movies-tvshow-cards-main-container
     .movies-tvshow-cards-container
     .card-main-container {
-    padding: var(--card-container-padding-MTCV1);
-    transition: var(--main-container-tansition-time-MTCV1) ease-in-out;
+    background-color: var(--card-container-background-color-app-review);
+    border-radius: var(--card-container-border-radius-app-review);
+    padding: var(--card-container-padding-app-review);
+    transition: var(--main-container-tansition-time-app-review) ease-in-out;
     cursor: pointer;
   }
   
   .movies-tvshow-cards-main-container
     .movies-tvshow-cards-container
     .card-main-container:hover {
-    transform: var(--main-container-transform-on-hover-MTCV1);
+    transform: var(--main-container-transform-on-hover-app-review);
   }
   
   .movies-tvshow-cards-main-container
@@ -73,7 +78,7 @@ a{
     .card-main-container
     .card-container {
     position: relative;
-    width: var(--card-width-MTCV1);
+    width: var(--card-width-app-review);
   }
   
   .movies-tvshow-cards-main-container
@@ -83,7 +88,7 @@ a{
     .card-header-container {
     display: flex;
     justify-content: space-between;
-    color: var(--card-header-font-color-MTCV1);
+    color: var(--card-header-font-color-app-review);
     font-size: var(--card-header-font-size);
   }
   
@@ -92,9 +97,9 @@ a{
     .card-main-container
     .card-container
     .card-image-container {
-    width: var(--card-width-MTCV1);
-    height: var(--card-image-height-MTCV1);
-    padding: var(--card-image-top-bottom-padding-MTCV1) 0px;
+    width: var(--card-width-app-review);
+    height: var(--card-image-height-app-review);
+    padding: var(--card-image-top-bottom-padding-app-review) 0px;
   }
   
   .movies-tvshow-cards-main-container
@@ -106,7 +111,7 @@ a{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--card-image-border-radius-MTCV1);
+    border-radius: var(--card-image-border-radius-app-review);
   }
   
   .movies-tvshow-cards-main-container
@@ -114,7 +119,7 @@ a{
     .card-main-container
     .card-container
     .card-footer-container {
-    width: var(--card-width-MTCV1);
+    width: var(--card-width-app-review);
   }
   
   .movies-tvshow-cards-main-container
@@ -123,64 +128,64 @@ a{
     .card-container
     .card-footer-container
     .card-title {
-    width: var(--card-width-MTCV1);
+    width: var(--card-width-app-review);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--card-title-font-color-MTCV1);
-    font-size: var(--card-title-font-size-MTCV1);
+    color: var(--card-title-font-color-app-review);
+    font-size: var(--card-title-font-size-app-review);
   }
   
   @media screen and (max-width: 2560px) {
     :root {
-      --main-container-padding-MTCV1: 10px 500px;
-      --card-image-height-MTCV1: 400px;
-      --card-width-MTCV1: 250px;
-      --card-title-font-size-MTCV1: 20px;
+      --main-container-padding-app-review: 10px 500px;
+      --card-image-height-app-review: 400px;
+      --card-width-app-review: 250px;
+      --card-title-font-size-app-review: 20px;
       --card-header-font-size: 15px;
     }
   }
   
   @media screen and (max-width: 1440px) {
     :root {
-      --main-container-padding-MTCV1: 10px 50px;
-      --card-image-height-MTCV1: 300px;
-      --card-width-MTCV1: 180px;
-      --card-title-font-size-MTCV1: 18px;
+      --main-container-padding-app-review: 10px 50px;
+      --card-image-height-app-review: 300px;
+      --card-width-app-review: 180px;
+      --card-title-font-size-app-review: 18px;
       --card-header-font-size: 14px;
     }
   }
   
   @media screen and (max-width: 1024px) {
     :root {
-      --main-container-padding-MTCV1: 10px 40px;
-      --card-title-font-size-MTCV1: 17px;
+      --main-container-padding-app-review: 10px 40px;
+      --card-title-font-size-app-review: 17px;
       --card-header-font-size: 13px;
     }
   }
   
   @media screen and (max-width: 768px) {
     :root {
-      --main-container-padding-MTCV1: 10px 30px;
+      --main-container-padding-app-review: 10px 30px;
     }
   }
   
   @media screen and (max-width: 425px) {
     :root {
-      --main-container-padding-MTCV1: 10px 10px;
-      --card-image-height-MTCV1: 200px;
-      --card-width-MTCV1: 130px;
-      --card-title-font-size-MTCV1: 16px;
+      --main-container-padding-app-review: 10px 10px;
+      --card-image-height-app-review: 200px;
+      --card-width-app-review: 130px;
+      --card-title-font-size-app-review: 16px;
       --card-header-font-size: 12px;
     }
   }
   
   @media screen and (max-width: 280px) {
     :root {
-      --main-container-padding-MTCV1: 10px 10px;
-      --card-image-height-MTCV1: 130px;
-      --card-width-MTCV1: 80px;
-      --card-title-font-size-MTCV1: 13px;
+      --main-container-padding-app-review: 10px 10px;
+      --card-image-height-app-review: 130px;
+      --card-width-app-review: 80px;
+      --card-title-font-size-app-review: 13px;
       --card-header-font-size: 10px;
     }
   }
