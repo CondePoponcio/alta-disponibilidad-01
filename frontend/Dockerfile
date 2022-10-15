@@ -1,4 +1,4 @@
-FROM node:16-alpine3.15 as app
+FROM node:16-alpine3.15 as builder
 
 
 ENV TZ=America/Santiago
@@ -10,13 +10,12 @@ WORKDIR /app
 #ENV PATH /app/node_modules/.bin:$PATH
 RUN npm install -g serve
 
-#Create app directory
 # Bundle app source
 COPY ./package* /app/
-
 RUN npm ci 
-
 COPY . .
+
+# Bundle production source
 RUN npm run build
 
 # nginx state for serving content
@@ -34,7 +33,7 @@ WORKDIR /usr/share/nginx/html
 # Remove default nginx static assets
 RUN rm -rf ./*
 # Copy static assets from builder stage
-COPY --from=app /app/build ./
+COPY --from=builder /app/build ./
 
 # Containers run nginx with global directives and daemon off
 

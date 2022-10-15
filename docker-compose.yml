@@ -21,18 +21,16 @@ services:
     frontend:
         container_name: fp-client
         build:
-            context: ./frontend
+            context: ./frontend/
             dockerfile: Dockerfile
-            target: app
+            target: builder
+        user: node
         volumes:
-            -   type: bind
-                source: ./frontend
-                target: /app
+            - ./frontend/:/app
         ports:
             - 3000:3000
-        env_file:
-            - .env
-        
+        environment:
+            - CHOKIDAR_USEPOLLING=true
         command: npm start
     webserver:
         build:
