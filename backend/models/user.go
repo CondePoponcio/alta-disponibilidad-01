@@ -3,12 +3,18 @@ package models
 import (
 	"gorm.io/gorm"
     "golang.org/x/crypto/bcrypt"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type User struct {
 	gorm.Model	
 	Username     string  `gorm:"not null;uniqueIndex"`
 	Password     string  `gorm:"not null"`
+}
+
+type Claims struct {
+	IdUser uint 
+	jwt.StandardClaims
 }
 
 func (user *User) HashPassword(password string) error {
