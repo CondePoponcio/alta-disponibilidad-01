@@ -5,7 +5,7 @@ import Login from '../auth/Login';
 import Alert from '../layout/Alert';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from './PrivateRoute';
-import Navbar from '../layout/Navbar';
+import Navbar from '../layout/Navbar.tsx';
 import Landing from '../layout/Landing';
 
 const RoutesBar = ({ match }) => {

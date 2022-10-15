@@ -5,9 +5,13 @@
     padding: 0 1rem;
     border-bottom: 2px solid rgba(175, 175, 175, 0.8);
     align-items: center;
-    background-color: #fff;
+    background-color: rgb(248, 205, 124);
     height: 4rem;
-    li{
-        color: rgb(15, 63, 109);
+    color: rgb(94, 67, 105) !important;
+    button{
+        color: #fff !important;
+    }
+    h2{
+        color: #fff;
     }
 }
