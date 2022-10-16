@@ -44,7 +44,7 @@ func GetUser() http.HandlerFunc {
 		}
 		var id = claims.IdUser
 		db.StartConnection()
-		if err  := db.DB.Select("Username").First(&user, id); err.Error != nil{
+		if err  := db.DB.Select("ID", "Username").First(&user, id); err.Error != nil{
 			fmt.Println(err.Error.Error())
 			db.CloseConnection()
 			return
