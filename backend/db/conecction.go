@@ -40,7 +40,7 @@ func InitDB(){
 	movie1:= models.Movie{Title: "movie1", Description: "description1", Gender: "gender1"}
 	movie2:= models.Movie{Title: "movie2", Description: "description2", Gender: "gender2"}
 	movie3:= models.Movie{Title: "movie3", Description: "description2", Gender: "gender3"}
-	review1:= models.Review{Title: "review", Description: "review1", IdMovie: 1, IdUser: 1}
+	review1:= models.Review{Title: "review", Description: "review1", Puntaje: 3, IdMovie: 1, IdUser: 1}
 
 	DB.Create(&user)
 	DB.Create(&movie1)
