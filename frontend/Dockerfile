@@ -1,7 +1,9 @@
-FROM node:16-alpine3.15 as builder
+FROM node:18-alpine3.15 as builder
 
 
 ENV TZ=America/Santiago
+
+ENV NODE_ENV development
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 

@@ -1,176 +1,67 @@
-import React from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import {api} from '../../utils/api';
+import CustomizedButtons from "./CustomizedButtons.tsx";
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 const Landing = () => {
+    let navigate = useNavigate();
+    const [movies, setMovies] = useState([])
+    
+    const getData = async () => {
+        try {
+            let data = await api.get('/movies');
+
+            setMovies(data.data.map(item => {
+                let temp = item
+                temp.image = "https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg"
+                return item
+            }))
+        } catch (error) {
+            var message = error.message;
+            MySwal.fire({
+                icon: 'error',
+                title: "Ha ocurrido un error",
+                heightAuto: false,
+                showCloseButton: true, showConfirmButton: false,
+                html: 
+                <CustomizedButtons
+                    text={"Ver detalles"}
+                    handleOpen={() => {MySwal.showValidationMessage(message)}}
+                />
+                
+            })
+        }
+    }
+    useEffect(() => {
+        getData();
+    }, [])
+
+    
+
     return <div className="movies-tvshow-cards-main-container">
         <div className="movies-tvshow-cards-container">
-            <div className="card-main-container">
+            
+            {movies.map((item, index) => <div key={`card-container-${index}`} className="card-main-container" onClick={()=>{
+                return navigate("/pelicula/" + item.ID);
+            }}>
                 <div className="card-container">
                     <div className="card-header-container">
-                        <div className="text-left">Movie</div>
-                        <div className="text-right">2016</div>
+                        <div className="text-left">{item.Gender}</div>
+                        <div className="text-right">{item.UpdatedAt}</div>
                     </div>
                     <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
+                        <img src={item.image} className="card-image" />
                     </div>
                     <div className="card-footer-container">
-                        <div className="card-title">Hacksaw Ridge</div>
+                        <div className="card-title">{item.Title}</div>
                     </div>
                 </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">Movie</div>
-                        <div className="text-right">2019</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">Ford v Ferrari</div>
-                    </div>
-                </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">TvShow</div>
-                        <div className="text-right">2021</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">WandaVision</div>
-                    </div>
-                </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">Movie</div>
-                        <div className="text-right">2009</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">Avatar</div>
-                    </div>
-                </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">Movie</div>
-                        <div className="text-right">2001</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">A Beautiful Mind</div>
-                    </div>
-                </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">TvShow</div>
-                        <div className="text-right">2013</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">Peaky Blinders</div>
-                    </div>
-                </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">TvShow</div>
-                        <div className="text-right">2014</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">Tokyo Ghoul</div>
-                    </div>
-                </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">Movie</div>
-                        <div className="text-right">2015</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">Mission: Impossible - Rogue Nation</div>
-                    </div>
-                </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">TvShow</div>
-                        <div className="text-right">2011</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">Game of Thrones</div>
-                    </div>
-                </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">TvShow</div>
-                        <div className="text-right">2019</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">Euphoria</div>
-                    </div>
-                </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">Movie</div>
-                        <div className="text-right">Ratings</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">The Aeronauts</div>
-                    </div>
-                </div>
-            </div>
-            <div className="card-main-container">
-                <div className="card-container">
-                    <div className="card-header-container">
-                        <div className="text-left">TvShow</div>
-                        <div className="text-right">2021</div>
-                    </div>
-                    <div className="card-image-container">
-                        <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" className="card-image" />
-                    </div>
-                    <div className="card-footer-container">
-                        <div className="card-title">Tokyo Revengers</div>
-                    </div>
-                </div>
-            </div>
+            </div>)}
         </div>
     </div>
 }

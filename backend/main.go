@@ -7,6 +7,7 @@ import (
 	"github.com/pame17/Arqui-Disp/db"
 	"github.com/pame17/Arqui-Disp/routes"
 	"github.com/pame17/Arqui-Disp/jwtController"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -15,6 +16,17 @@ func main() {
 	// Start Migrations
 	db.InitDB()
 
+	// Cors Policy
+	cors := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{
+			http.MethodPost,
+			http.MethodGet,
+		},
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: false,
+	})
+	
 	//Routes
 	r := mux.NewRouter()
 	//User Handler
@@ -26,19 +38,20 @@ func main() {
     r.HandleFunc("/user/{id}", jwtController.ValidateJWT(routes.DeleteUser())).Methods("DELETE")
 
 	//Review Handler
-	r.HandleFunc("/reviews", jwtController.ValidateJWT(routes.GetReviews())).Methods("GET")
-    r.HandleFunc("/review/{id}", jwtController.ValidateJWT(routes.GetReview())).Methods("GET")
+	r.HandleFunc("/reviews", routes.GetReviews()).Methods("GET")
+    r.HandleFunc("/review/{id}", routes.GetReview()).Methods("GET")
     r.HandleFunc("/review", jwtController.ValidateJWT(routes.CreateReview())).Methods("POST")
     r.HandleFunc("/review/{id}", jwtController.ValidateJWT(routes.UpdateReview())).Methods("PUT")
     r.HandleFunc("/review/{id}", jwtController.ValidateJWT(routes.DeleteReview())).Methods("DELETE")
 
 	//Movie Handler
-	r.HandleFunc("/movies", jwtController.ValidateJWT(routes.GetMovies())).Methods("GET")
-	r.HandleFunc("/movie/{id}", jwtController.ValidateJWT(routes.GetMovie())).Methods("GET")
+	r.HandleFunc("/movies", routes.GetMovies()).Methods("GET")
+	r.HandleFunc("/movie/{id}", routes.GetMovie()).Methods("GET")
 	r.HandleFunc("/movie", jwtController.ValidateJWT(routes.CreateMovie())).Methods("POST")
 	r.HandleFunc("/movie/{id}", jwtController.ValidateJWT(routes.UpdateMovie())).Methods("PUT")
 	r.HandleFunc("/movie/{id}", jwtController.ValidateJWT(routes.DeleteMovie())).Methods("DELETE")
 
-	http.ListenAndServe(":8000", r)
+	handler := cors.Handler(r)
+	http.ListenAndServe(":8000", handler)
 
 }

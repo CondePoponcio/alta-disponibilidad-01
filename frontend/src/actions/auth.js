@@ -15,7 +15,7 @@ import {
 // Load User
 export const loadUser = () => async (dispatch) => {
     try {
-        const res = await api.get("/auth");
+        const res = await api.get("/user");
         //console.log("Que wea", res.data)
         dispatch({
             type: USER_LOADED,
@@ -49,7 +49,7 @@ export const register = (formData) => async (dispatch) => {
     
         await dispatch({
             type: REGISTER_SUCCESS,
-            payload: res.data,
+            payload: {token: res.data},
         });
         await dispatch(loadUser());
         
@@ -75,15 +75,15 @@ export const register = (formData) => async (dispatch) => {
 };
 
 // Login User
-export const login = (rut, password, tipo) => async (dispatch) => {
-    const body = { rut, password, tipo };
+export const login = (data) => async (dispatch) => {
+    
 
     try {
-        const res = await api.post("/auth", body);
-        
+        const res = await api.post("/login", data);
+        console.log("No pasa nada: ", res.data)
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: res.data,
+            payload: {token: res.data},
         });
 
         dispatch(loadUser());

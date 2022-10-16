@@ -12,6 +12,7 @@ import (
 
 func GetReviews() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+
 		var reviews []models.Review
 		db.StartConnection()
 		if err := db.DB.Find(&reviews); err.Error != nil{
@@ -27,7 +28,7 @@ func GetReviews() http.HandlerFunc {
 func GetReview() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		data := mux.Vars(r)
-		var review models.Review
+		var review []models.Review
 		db.StartConnection()
 		if err := db.DB.First(&review, data["id"]); err.Error != nil{
 			fmt.Println(err.Error.Error())

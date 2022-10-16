@@ -7,6 +7,7 @@ import NotFound from '../layout/NotFound';
 import PrivateRoute from './PrivateRoute';
 import Navbar from '../layout/Navbar.tsx';
 import Landing from '../layout/Landing';
+import Movie from '../Movie';
 
 const RoutesBar = ({ match }) => {
 
@@ -17,6 +18,7 @@ const RoutesBar = ({ match }) => {
 
             <Routes>
                 <Route path={``} element={<Landing />} />
+                <Route path={`/pelicula/:id`} element={<Movie />} />
                 
                 <Route element={<NotFound />} />
             </Routes>

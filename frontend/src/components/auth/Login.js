@@ -3,8 +3,14 @@ import "../../sass/components/login.scss"
 import $ from 'jquery';
 import React, { Fragment, useState, useEffect } from 'react';
 import {api} from '../../utils/api';
+import {login} from '../../actions/auth';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
+import CustomizedButtons from "./../layout/CustomizedButtons.tsx";
 
-const Login = (props) => {
+const MySwal = withReactContent(Swal)
+
+const Login = ({onClose, login}) => {
     const [estado, setstate] = useState(true)
     const [loginUsername, setloginUsername] = useState('')
     const [loginPassword, setloginPassword] = useState('')
@@ -15,12 +21,57 @@ const Login = (props) => {
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault()
-        console.log("Login: ", {loginUsername, loginPassword})
+
+        try {
+            var data = {
+                "Username": loginUsername,
+                "Password": loginPassword
+            }
+            login(data)
+        } catch (error) {
+            var message = error.message;
+            await onClose()
+            MySwal.fire({
+                icon: 'error',
+                title: "Ha ocurrido un error",
+                heightAuto: false,
+                showCloseButton: true, showConfirmButton: false,
+                html: 
+                <CustomizedButtons
+                    text={"Ver detalles"}
+                    handleOpen={() => {MySwal.showValidationMessage(message)}}
+                />
+                
+            })
+        }
+        
         
     }
 
-    const handleSubmitRegister = (e) => {
+    const handleSubmitRegister = async (e) => {
         e.preventDefault()
+        try {
+            let response = await api.post('/register',{
+                "Username": signupUsername,
+                "Password": signupPassword
+            })
+            console.log("Get register: ", response.data)
+        } catch (error) {
+            var message = error.message;
+            await onClose()
+            MySwal.fire({
+                icon: 'error',
+                title: "Ha ocurrido un error",
+                heightAuto: false,
+                showCloseButton: true, showConfirmButton: false,
+                html: 
+                <CustomizedButtons
+                    text={"Ver detalles"}
+                    handleOpen={() => {MySwal.showValidationMessage(message)}}
+                />
+                
+            })
+        }
         console.log("Registro: ", {signupUsername, signupPassword, signupConfirmPassword})
     }
     return <section className="content forms-section">

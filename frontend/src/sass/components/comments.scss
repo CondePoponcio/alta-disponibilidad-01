@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+:root {
+    --primary-color: rgb(28, 158, 136);
+    --secondary-color: rgb(194, 245, 236);
+}
+
+.container-movie{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.grid-movie{
+    display: grid;
+    grid-template-areas:
+        'a title'
+        'a date'
+        'a desc'
+        'a rtg';
+    grid-template-rows: 50px 1fr 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    div{
+        background-color: green;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .title{
+        grid-area: title;
+    }
+    .img{
+        grid-area: a;
+        img{
+            max-width: min(100%, 500px);
+        }
+    }
+    .description{
+        grid-area: desc;
+    }
+    .rating{
+        grid-area: rtg;
+    }
+    .fecha{
+        grid-area: date;
+    }
+}
+.container-comments {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 2rem;
+    background-color: #efefef;
+    .tabs {
+        display: flex;
+        width: 100%;
+        position: relative;
+        background-color: #fff;
+        border-top: 1px solid #d6d6d6;
+        box-shadow: rgba(47, 248, 215, 0.4) 0px 5px, rgba(47, 248, 215, 0.3) 0px 10px, rgba(47, 248, 215, 0.2) 0px 15px, rgba(47, 248, 215, 0.1) 0px 20px, rgba(47, 248, 215, 0.05) 0px 25px;
+        padding: 0.75rem;
+        
+        * {
+            z-index: 2;
+        }
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    .tab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 34px;
+        width: 200px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        border-radius: 99px; /* just a high number to create pill effect*/
+        cursor: pointer;
+        transition: color 0.15s ease-in;
+    }
+
+    .notification {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        min-width: 1.5rem;
+        height: 1.5rem;
+        margin-left: 0.75rem;
+        border-radius: 50%;
+        background-color: var(--secondary-color);
+        transition: 0.15s ease-in;
+    }
+
+    input[type="radio"] {
+        &.checked {
+            & + label {
+                color: var(--primary-color);
+                & > .notification {
+                    background-color: var(--primary-color);
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    input[id="radio-1"] {
+        &.checked {
+            & ~ .glider {
+                transform: translateX(0);
+            }
+        }
+    }
+
+    input[id="radio-2"] {
+        &.checked {
+            & ~ .glider {
+                transform: translateX(100%);
+            }
+        }
+    }
+
+    .glider {
+        position: absolute;
+        display: flex;
+        height: 34px;
+        width: 200px;
+        background-color: var(--secondary-color);
+        z-index: 1;
+        border-radius: 99px; // just a high number to create pill effect
+        transition: 0.25s ease-out;
+    }
+    /*
+    @media (max-width: 700px) {
+        .tabs {
+            transform: scale(0.6);
+        }
+    }*/
+}
+
+
+
+/** ====================
+ * Lista de Comentarios
+ =======================*/
+ .comments-container {
+    width: 100%;
+    > div{
+        display: flex;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0 1.8rem;
+    }
+    .grid{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+        p{
+            margin: 1rem 0;
+        }
+    }
+    .each-component{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        hr{
+            margin: 1rem 0;
+        }
+    }
+}
+
