@@ -30,7 +30,7 @@ func GetReview() http.HandlerFunc {
 		data := mux.Vars(r)
 		var review []models.Review
 		db.StartConnection()
-		if err := db.DB.First(&review, data["id"]); err.Error != nil{
+		if err := db.DB.Where("id_movie = ?", data["id"]).Find(&review); err.Error != nil{
 			fmt.Println(err.Error.Error())
 			db.CloseConnection()
 			return
