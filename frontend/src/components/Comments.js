@@ -1,5 +1,5 @@
 import '../sass/components/comments.scss'
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import Stars from './layout/Stars';
 import TextField from '@mui/material/TextField';
 import Swal from 'sweetalert2';
@@ -7,30 +7,122 @@ import withReactContent from 'sweetalert2-react-content'
 
 import CustomizedButtons from './layout/CustomizedButtons.tsx';
 import { api } from '../utils/api';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const MySwal = withReactContent(Swal)
 
-const Comment = ({item: {Title, Description, UpdatedAt, Username, Puntaje}}) => {
+const Comment = ({item: {ID, Title, Description, UpdatedAt, Username, Puntaje}, isAuthenticated, user, id}) => {
+
+    //temp
+    const [texto, setTexto] = useState({value:''})
+    const [star, setStar] = useState(0)
+    const [edit, setEdit] = useState(false)
+    
+
+    const handleSubmitReview = async () => {
+        try {
+            let response = await api.put("/review/" + ID, {Puntaje: star, Description: texto.value, Username: user.Username})
+            window.location.reload()
+        } catch (error) {
+            var message = error.message
+            MySwal.fire({
+                icon: 'error',
+                title: "Ha ocurrido un error",
+                heightAuto: false,
+                showCloseButton: true, showConfirmButton: false,
+                html: 
+                <CustomizedButtons
+                    text={"Ver detalles"}
+                    handleOpen={() => {MySwal.showValidationMessage(message)}}
+                />
+                
+            })
+        }
+    }
+
+    const handleDeleteReview = async () => {
+        try {
+            let response = await api.delete("/review/" + ID, {Puntaje: star, Description: texto.value, Username: user.Username})
+            window.location.reload()
+        } catch (error) {
+            var message = error.message
+            MySwal.fire({
+                icon: 'error',
+                title: "Ha ocurrido un error",
+                heightAuto: false,
+                showCloseButton: true, showConfirmButton: false,
+                html: 
+                <CustomizedButtons
+                    text={"Ver detalles"}
+                    handleOpen={() => {MySwal.showValidationMessage(message)}}
+                />
+                
+            })
+        }
+    }
     return <div className="each-component">
-        <div style={{"display":"flex"}}>
-            <p>{Username}</p>
-            <p>{UpdatedAt.slice(0,10).replace("T", " ")}</p>
+        <div style={{"display":"flex", "gap": "1rem", "justifyContent": "space-between"}}>
+            <div style={{"display":"flex", "gap": "1rem"}}>
+                <p>Usuario: {Username}</p>
+                <p>Fecha: {UpdatedAt.slice(0,10).replace("T", " ")}</p>
+            </div>
+            <div>
+                {isAuthenticated && user && user.Username == Username && <Fragment>
+                    <EditIcon color={"primary"} onClick={()=>{
+                        let val = edit
+                        
+                        setEdit(!val)
+                    }} />
+                    <DeleteIcon color={"error"} onClick={()=>{
+                        handleDeleteReview()
+                    }} />    
+                </Fragment>}
+            </div>
+            
         </div>
-        <Stars star={Puntaje} setStar={(val)=>{}}/>
-        <p>{Description}</p>
+        <Stars star={(isAuthenticated && edit && user && user.Username == Username)?star:Puntaje} setStar={(val)=>{
+            
+            setStar(val)
+        }}/>
+        <div className="text">
+        <p>Déjenos su comentario</p>
+            <TextField
+                key={`text-flied`}
+                placeholder="Escriba  aquí"
+                multiline
+                disabled={!edit}
+                fullWidth
+                value={edit?(texto.value ? texto.value : ''):Description}
+                minRows={3}
+                maxRows={14}
+                
+                onChange={async (event) => {
+                    var data = event.target.value;
+                    
+                    setTexto({value: data?data:''})
+                    
+                }}
+            />
+        </div>
+
+        {isAuthenticated && edit && user && user.Username == Username && <CustomizedButtons text={"Actualizar"} handleOpen={()=>{handleSubmitReview()}} />}
         
         <hr />
     </div>
 }
 
-const Comments = ({comentarios}) => {
+const Comments = ({comentarios, id, isAuthenticated, user}) => {
 
     const [open, setOpen] = useState(true)
     const [star, setStar] = useState(0)
+    const [texto, setTexto] = useState({value:''})
     const handleSubmitReview = async () => {
         try {
-            let response = await api.post("/review/"+)
+            let response = await api.post("/review", {IdMovie: parseInt(id), Puntaje: star, Description: texto.value, Username: user.Username})
+            window.location.reload()
         } catch (error) {
+            var message = error.message
             MySwal.fire({
                 icon: 'error',
                 title: "Ha ocurrido un error",
@@ -58,7 +150,7 @@ const Comments = ({comentarios}) => {
 	<div className="comments-container">
 		<div>
             {Array.isArray(comentarios) && comentarios.map((item, index) => {
-                return <Comment key={"comment-"+index} item={item} />
+                return <Comment id={id} isAuthenticated={isAuthenticated} user={user} key={"comment-"+index} item={item} />
             })}
         </div>
 	</div>:<div className="comments-container"> 
@@ -75,21 +167,18 @@ const Comments = ({comentarios}) => {
                         placeholder="Escriba  aquí"
                         multiline
                         fullWidth
-                        //disabled={(consulta.fecha_respuesta != null && original)}
-                        //value={pres.value ? pres.value : ''}
-                        //error={(error || pres.error)}
-                        /*helperText={(error || pres.error) ? "Formato Inválido" : ''}*/
+                        value={texto.value ? texto.value : ''}
                         minRows={3}
                         maxRows={14}
                         
                         onChange={async (event) => {
                             var data = event.target.value;
                             
-                            
+                            setTexto({value: data?data:''})
                             
                         }}
                     />
-                    <CustomizedButtons text={"Publicar"} handleOpen={handleSubmitReview} />
+                    {isAuthenticated && <CustomizedButtons text={"Publicar"} handleOpen={()=>{handleSubmitReview()}} />}
                 </div>
             </div>
         </div>

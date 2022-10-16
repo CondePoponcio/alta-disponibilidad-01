@@ -8,6 +8,8 @@ import PrivateRoute from './PrivateRoute';
 import Navbar from '../layout/Navbar.tsx';
 import Landing from '../layout/Landing';
 import Movie from '../Movie';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 const RoutesBar = ({ match }) => {
 

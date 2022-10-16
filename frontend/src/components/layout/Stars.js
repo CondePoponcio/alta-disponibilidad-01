@@ -49,7 +49,7 @@ const Stars = ({star, setStar}) => {
                 }, 800);
             }
         });
-    }, [])
+    }, [star])
     return (
         <Fragment>
             

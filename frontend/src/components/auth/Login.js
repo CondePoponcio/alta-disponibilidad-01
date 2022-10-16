@@ -3,14 +3,14 @@ import "../../sass/components/login.scss"
 import $ from 'jquery';
 import React, { Fragment, useState, useEffect } from 'react';
 import {api} from '../../utils/api';
-import {login} from '../../actions/auth';
+import {login, register} from '../../actions/auth';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 import CustomizedButtons from "./../layout/CustomizedButtons.tsx";
 
 const MySwal = withReactContent(Swal)
 
-const Login = ({onClose, login}) => {
+const Login = ({onClose, login, register}) => {
     const [estado, setstate] = useState(true)
     const [loginUsername, setloginUsername] = useState('')
     const [loginPassword, setloginPassword] = useState('')
@@ -27,7 +27,8 @@ const Login = ({onClose, login}) => {
                 "Username": loginUsername,
                 "Password": loginPassword
             }
-            login(data)
+            await login(data)
+            await onClose()
         } catch (error) {
             var message = error.message;
             await onClose()
@@ -51,11 +52,11 @@ const Login = ({onClose, login}) => {
     const handleSubmitRegister = async (e) => {
         e.preventDefault()
         try {
-            let response = await api.post('/register',{
+            await register({
                 "Username": signupUsername,
                 "Password": signupPassword
             })
-            console.log("Get register: ", response.data)
+            await onClose()
         } catch (error) {
             var message = error.message;
             await onClose()

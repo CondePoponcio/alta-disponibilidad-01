@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { logout } from "../../actions/auth";
+import { logout, register } from "../../actions/auth";
 import "../../sass/components/navbar.scss";
 import Login from "../auth/Login";
 import CustomizedButtons from "./CustomizedButtons.tsx";
@@ -31,7 +31,7 @@ const theme = createTheme({
         paper: '#263238',
       },
       text: {
-        primary: '#173A5E',
+        primary: '#fff',
         secondary: '#46505A',
       },
       action: {
@@ -40,8 +40,8 @@ const theme = createTheme({
     },
 });
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = [];
+const settings = ['Salir'];
 
 const style = {
     position: "absolute",
@@ -54,7 +54,7 @@ const style = {
     zIndex: -1
 };
 
-const Navbar = ({ auth: { isAuthenticated, user }, logout, login }) => {
+const Navbar = ({ auth: { isAuthenticated, user, loading }, logout, login, register }) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -80,13 +80,13 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, login }) => {
     return (
         <Fragment>
             <Modal
-                open={open && !isAuthenticated}
+                open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Login login={login} onClose={handleClose} />
+                    <Login register={register} login={login} onClose={handleClose} />
                 </Box>
             </Modal>
             <ThemeProvider theme={theme} >
@@ -110,7 +110,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, login }) => {
                                     fontFamily: "monospace",
                                     fontWeight: 700,
                                     letterSpacing: ".3rem",
-                                    color: "inherit",
+                                    color: "white",
                                     textDecoration: "none",
                                 }}
                             >
@@ -181,7 +181,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, login }) => {
                                     fontFamily: "monospace",
                                     fontWeight: 700,
                                     letterSpacing: ".3rem",
-                                    color: "inherit",
+                                    color: "white",
                                     textDecoration: "none",
                                 }}
                             >
@@ -222,7 +222,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, login }) => {
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
-                                        sx={{ mt: "45px" }}
+                                        sx={{ mt: "45px", color:'red' }}
                                         id="menu-appbar"
                                         anchorEl={anchorElUser}
                                         anchorOrigin={{
@@ -242,7 +242,11 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, login }) => {
                                                 key={setting}
                                                 onClick={handleCloseUserMenu}
                                             >
-                                                <Typography textAlign="center">
+                                                <Typography textAlign="center" onClick={()=>{
+                                                    if(setting == 'Logout'){
+                                                        logout()
+                                                    }
+                                                }}>
                                                     {setting}
                                                 </Typography>
                                             </MenuItem>
@@ -265,6 +269,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, login }) => {
 
 Navbar.propTypes = {
     logout: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
 };
 
@@ -272,4 +277,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logout, login })(Navbar);
+export default connect(mapStateToProps, { logout, login, register })(Navbar);

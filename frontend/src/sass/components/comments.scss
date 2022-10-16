@@ -9,9 +9,11 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    padding: 2rem 0;
 }
 .grid-movie{
     display: grid;
+    padding: 0 1rem;
     grid-template-areas:
         'a title'
         'a date'
@@ -21,7 +23,7 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
     div{
-        background-color: green;
+        background-color: transparent;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -154,6 +156,7 @@
     > div{
         display: flex;
         background-color: #fff;
+        flex-direction: column;
         border-radius: 8px;
         padding: 1rem;
         margin: 0 1.8rem;
@@ -170,8 +173,16 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+        svg{
+            cursor: pointer;
+        }
         hr{
             margin: 1rem 0;
+        }
+        .text{
+            border-radius: 2px;
+            background-color: rgb(238, 238, 238);
+            padding: 0.5rem;
         }
     }
 }

@@ -80,7 +80,17 @@ export const login = (data) => async (dispatch) => {
 
     try {
         const res = await api.post("/login", data);
-        console.log("No pasa nada: ", res.data)
+        if(!res.data){
+            Swal.fire({
+                icon: "error",
+                title: "Credenciales incorrectas",
+                allowOutsideClick: false,
+                heightAuto: false,
+                showCancelButton: false,
+                showCloseButton: true,
+                showConfirmButton: false,
+            })
+        }
         dispatch({
             type: LOGIN_SUCCESS,
             payload: {token: res.data},
@@ -115,7 +125,7 @@ export const login = (data) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
     try {
-        localStorage.removeItem("form_id")
+        
         
         dispatch({ type: LOGOUT });
     } catch (err) {
