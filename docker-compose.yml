@@ -20,20 +20,6 @@ services:
             - POSTGRES_DB=${DB_DATABASE}
         ports:
             - 5432:5432
-    react:
-        container_name: fp-client
-        build:
-            context: ./frontend/
-            dockerfile: Dockerfile
-            target: builder
-        user: node
-        volumes:
-            - ./frontend/:/app
-        ports:
-            - 3000:3000
-        environment:
-            - CHOKIDAR_USEPOLLING=true
-        command: npm start
     frontend:
         build:
             context: ./frontend
