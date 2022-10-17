@@ -49,3 +49,5 @@ docker compose build
 docker compose create
 docker compose start
 ```
+
+Un video de muestra se puede encontrar en el siguiente link: https://youtu.be/C8Li4gtLMCg
