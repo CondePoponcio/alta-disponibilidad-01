@@ -20,7 +20,8 @@ Frontend: construido utilizando React.
 2. Se debe de agregar el archivo .env con el siguiente contenido:
 
 
-SECRET_KEY=guwahgeauoghoeauedaobhv oaeuhvbe7yh393y7g3h37
+```env
+SECRET_KEY=my-secret-key
 
 
 DB_HOST=database
@@ -39,6 +40,7 @@ DB_PORT=5432
 
 
 API_PORT=8000
+```
 
 3. 
 ```
