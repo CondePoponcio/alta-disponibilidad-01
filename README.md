@@ -42,9 +42,9 @@ DB_PORT=5432
 API_PORT=8000
 ```
 
-3. 
-```
-- docker compose build
-- docker compose create
-- docker compose start
+3. Luego se ejecutan los siguientes comandos para ejecutar el entorno
+```bash
+docker compose build
+docker compose create
+docker compose start
 ```
