@@ -90,13 +90,15 @@ export const login = (data) => async (dispatch) => {
                 showCloseButton: true,
                 showConfirmButton: false,
             })
+        }else{
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: {token: res.data},
+            });
+    
+            dispatch(loadUser());
         }
-        dispatch({
-            type: LOGIN_SUCCESS,
-            payload: {token: res.data},
-        });
-
-        dispatch(loadUser());
+        
     } catch (err) {
         
         Swal.fire({

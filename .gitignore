@@ -1,5 +1,4 @@
 .env
 db.env
 node_modules
-default.conf
 .ash_history

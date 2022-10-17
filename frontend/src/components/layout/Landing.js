@@ -17,7 +17,7 @@ const Landing = () => {
         try {
             let data = await api.get('/movies');
             
-            var temp = await getFotos()
+            
             setMovies(data.data)
         } catch (error) {
             var message = error.message;

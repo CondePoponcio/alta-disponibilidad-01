@@ -18,32 +18,17 @@ services:
             - POSTGRES_USER=${DB_USERNAME}
             - POSTGRES_PASSWORD=${DB_PASSWORD}
             - POSTGRES_DB=${DB_DATABASE}
-        ports:
-            - 5432:5432
     frontend:
         build:
             context: ./frontend
             dockerfile: Dockerfile
             target: prod
         image: nginx
-        container_name: fp-nx
         restart: always
-        
-        volumes:
-            -   type: bind
-                source: ./nginx/conf.d/
-                target: /etc/nginx/conf.d/
-        environment:
-            - API_SERVER=backend:8000
-        env_file:
-            - .env
-        ports: 
+        ports:
             - 80:80
-        command: >
-            /bin/sh -c
-            "envsubst '
-            $${API_SERVER}
-            '< /etc/nginx/conf.d/default.conf.template
-            > /etc/nginx/conf.d/default.conf
-            && nginx -g 'daemon off;'"
+        environment:
+            - API_SERVER=http://backend:${API_PORT}
+        
+        
 

@@ -19,7 +19,7 @@ const Movie = ({auth: {isAuthenticated, user}}) => {
         try {
             let datos = await api.get(`/movie/${id}`)
             let comentarios = await api.get(`/review/${id}`)
-            console.log("Que esta pasadno: ", comentarios)
+            
             setMovie_data(datos.data)
             setComments(comentarios.data)
 
@@ -52,7 +52,7 @@ const Movie = ({auth: {isAuthenticated, user}}) => {
                 <p>{movie_data && movie_data.Title}</p>
             </div>
             <div className="img">
-                <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" alt="" />
+                <img src={movie_data && movie_data.Poster?movie_data.Poster:''} alt="" />
             </div>
             <div className="description">
                 <div>Descripción</div>

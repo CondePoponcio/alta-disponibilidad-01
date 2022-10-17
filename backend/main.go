@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
     "github.com/gorilla/mux"
+	"os"
 
 	"github.com/pame17/Arqui-Disp/db"
 	"github.com/pame17/Arqui-Disp/routes"
@@ -54,6 +55,6 @@ func main() {
 	r.HandleFunc("/movie/{id}", jwtController.ValidateJWT(routes.DeleteMovie())).Methods("DELETE")
 
 	handler := cors.Handler(r)
-	http.ListenAndServe(":8000", handler)
+	http.ListenAndServe(":" + os.Getenv("API_PORT") , handler)
 
 }
