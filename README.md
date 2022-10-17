@@ -4,13 +4,14 @@ Trabajo de: Felipe Condore y Pamela Saldías
 
 # Componentes del sistema:
 
-Base de datos: se utilizo Postgrese. En donde las tablas creadas estan dadas por User, Movie y Review.
+## Base de datos
+Se utilizo Postgres. En donde las tablas creadas estan dadas por User, Movie y Review.
 
+## Backend
+Construido utilizando Golang. Sus principales funciones estan en Register, Login y el CRUD de Review (POST, GET, PUT, DELETE)
 
-Backend: construido utilizando Golang. Sus principales funciones estan en Register, Login y el CRUD de Review (POST, GET, PUT, DELETE)
-
-
-Frontend: construido utilizando React.
+## Frontend
+Construido utilizando React para preparar todos los datos estáticos de la aplicación. Luego a través de multistage se usa la imagen de Nginx para desplegarlo al puerto 80 donde puede ser visto en cualquier navegador como localhost.
 
 # Inicializacion
 1.
