@@ -17,12 +17,13 @@ Frontend: construido utilizando React.
 ```
 - git clone https://github.com/CondePoponcio/alta-disponibilidad-01
 ```
-2. Se debe de agregar los archivos .env:
-
-- Backend:
+2. Se debe de agregar el archivo .env con el siguiente contenido:
 
 
-SECRET_KEY=super-hype-secret
+SECRET_KEY=guwahgeauoghoeauedaobhv oaeuhvbe7yh393y7g3h37
+
+
+DB_HOST=database
 
 
 DB_USERNAME=postgres
@@ -34,15 +35,14 @@ DB_PASSWORD=postgres
 DB_DATABASE=tarea1
 
 
-DB_HOST=database
-
-
 DB_PORT=5432
 
 
--Frontend:
+API_PORT=8000
 
 3. 
 ```
-- docker compose up
+- docker compose build
+- docker compose create
+- docker compose start
 ```
