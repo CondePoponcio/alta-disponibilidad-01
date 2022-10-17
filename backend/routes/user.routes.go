@@ -94,6 +94,8 @@ func Register() http.HandlerFunc {
 		if err := db.DB.Create(&user); err.Error != nil{
 			fmt.Println(err.Error.Error())
 			db.CloseConnection()
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte("Username in use"))
 			return
 		}
 		db.CloseConnection()
