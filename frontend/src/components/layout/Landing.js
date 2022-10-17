@@ -5,7 +5,8 @@ import CustomizedButtons from "./CustomizedButtons.tsx";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
-
+import getRandomNumber from '../../utils/getRandomNumber';
+import getFotos from '../../utils/getFotos';
 const MySwal = withReactContent(Swal)
 
 const Landing = () => {
@@ -15,12 +16,9 @@ const Landing = () => {
     const getData = async () => {
         try {
             let data = await api.get('/movies');
-
-            setMovies(data.data.map(item => {
-                let temp = item
-                temp.image = "https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg"
-                return item
-            }))
+            
+            var temp = await getFotos()
+            setMovies(data.data)
         } catch (error) {
             var message = error.message;
             MySwal.fire({
@@ -51,11 +49,11 @@ const Landing = () => {
             }}>
                 <div className="card-container">
                     <div className="card-header-container">
-                        <div className="text-left">{item.Gender}</div>
-                        <div className="text-right">{item.UpdatedAt}</div>
+                        {false && <div className="text-left">{item.Gender}</div>}
+                        <div className="text-right">{Date.parse(item.UpdatedAt)?(new Date(item.UpdatedAt)).getFullYear():'Desconocida'}</div>
                     </div>
                     <div className="card-image-container">
-                        <img src={item.image} className="card-image" />
+                        <img src={item.Poster} className="card-image" />
                     </div>
                     <div className="card-footer-container">
                         <div className="card-title">{item.Title}</div>

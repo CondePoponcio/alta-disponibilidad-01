@@ -3,7 +3,9 @@ import "../../sass/components/login.scss"
 import $ from 'jquery';
 import React, { Fragment, useState, useEffect } from 'react';
 import {api} from '../../utils/api';
+import CloseIcon from '@mui/icons-material/Close';
 import {login, register} from '../../actions/auth';
+import { pink } from '@mui/material/colors';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 import CustomizedButtons from "./../layout/CustomizedButtons.tsx";
@@ -23,12 +25,23 @@ const Login = ({onClose, login, register}) => {
         e.preventDefault()
 
         try {
-            var data = {
-                "Username": loginUsername,
-                "Password": loginPassword
+            if(loginUsername && loginPassword){
+                var data = {
+                    "Username": loginUsername,
+                    "Password": loginPassword
+                }
+                await login(data)
+                await onClose()
             }
-            await login(data)
-            await onClose()
+            else{
+                await onClose()
+                MySwal.fire({
+                    icon: 'error',
+                    title: "Ninguna credencial puede estar vacía",
+                    heightAuto: false,
+                    showCloseButton: true, showConfirmButton: false,
+                })
+            }
         } catch (error) {
             var message = error.message;
             await onClose()
@@ -52,11 +65,30 @@ const Login = ({onClose, login, register}) => {
     const handleSubmitRegister = async (e) => {
         e.preventDefault()
         try {
-            await register({
-                "Username": signupUsername,
-                "Password": signupPassword
-            })
-            await onClose()
+            if(signupUsername && signupPassword && signupConfirmPassword && signupPassword == signupConfirmPassword){
+                await register({
+                    "Username": signupUsername,
+                    "Password": signupPassword
+                })
+                await onClose()
+            }else if(signupPassword != signupConfirmPassword){
+                await onClose()
+                MySwal.fire({
+                    icon: 'error',
+                    title: "Las contraseñas no son iguales",
+                    heightAuto: false,
+                    showCloseButton: true, showConfirmButton: false,
+                })
+            }else{
+                await onClose()
+                MySwal.fire({
+                    icon: 'error',
+                    title: "Ninguna entrada puede estar vacía",
+                    heightAuto: false,
+                    showCloseButton: true, showConfirmButton: false,
+                })
+            }
+            
         } catch (error) {
             var message = error.message;
             await onClose()
@@ -77,7 +109,11 @@ const Login = ({onClose, login, register}) => {
     }
     return <section className="content forms-section">
 
-        {false && <h1 className="section-title">Animated Forms</h1>}
+        <div className="close-button">
+            <CloseIcon onClick={()=>{
+                onClose()
+            }} fontSize="large" sx={{ color: pink[50] }} />
+        </div>
         <div className="forms">
             <div className={`form-wrapper ${estado ? 'is-active' : ''}`}>
                 <button type="button" className="switcher switcher-login" onClick={() => {

@@ -10,24 +10,41 @@
     flex-direction: column;
     gap: 2rem;
     padding: 2rem 0;
+    height: 100%;
+    background-color: #efefef;
 }
 .grid-movie{
+    max-width: 1100px;
     display: grid;
     padding: 0 1rem;
     grid-template-areas:
         'a title'
         'a date'
-        'a desc'
-        'a rtg';
+        'a rtg'
+        'a desc';
     grid-template-rows: 50px 1fr 1fr 1fr;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
-    div{
+    > div{
         background-color: transparent;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        gap: 1rem;
+        > *{
+            width: 100%;
+            max-width: 500px;
+        }
+        > div{
+            background-color: rgb(78, 95, 95);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+        }
+        p{
+            margin: 0 1rem;
+        }
     }
     .title{
         grid-area: title;
@@ -153,6 +170,7 @@
  =======================*/
  .comments-container {
     width: 100%;
+    max-width: 1100px;
     > div{
         display: flex;
         background-color: #fff;
@@ -168,6 +186,15 @@
         p{
             margin: 1rem 0;
         }
+        
+    }
+    .grid > div.text, .each-component >  div.text{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        div{
+            align-self: center;
+        }
     }
     .each-component{
         display: flex;
@@ -181,7 +208,7 @@
         }
         .text{
             border-radius: 2px;
-            background-color: rgb(238, 238, 238);
+            
             padding: 0.5rem;
         }
     }

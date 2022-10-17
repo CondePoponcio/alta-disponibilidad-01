@@ -86,7 +86,7 @@ const Comment = ({item: {ID, Title, Description, UpdatedAt, Username, Puntaje}, 
             setStar(val)
         }}/>
         <div className="text">
-        <p>Déjenos su comentario</p>
+            {(isAuthenticated && edit && user && user.Username == Username) && <p>Déjenos su comentario</p>}
             <TextField
                 key={`text-flied`}
                 placeholder="Escriba  aquí"
@@ -104,9 +104,11 @@ const Comment = ({item: {ID, Title, Description, UpdatedAt, Username, Puntaje}, 
                     
                 }}
             />
+
+            {isAuthenticated && edit && user && user.Username == Username && <CustomizedButtons text={"Actualizar"} handleOpen={()=>{handleSubmitReview()}} />}
         </div>
 
-        {isAuthenticated && edit && user && user.Username == Username && <CustomizedButtons text={"Actualizar"} handleOpen={()=>{handleSubmitReview()}} />}
+        
         
         <hr />
     </div>
@@ -160,7 +162,7 @@ const Comments = ({comentarios, id, isAuthenticated, user}) => {
                     <p>Escoge tu puntaje</p>
                     <Stars star={star} setStar={(val)=>{setStar(val)}}/>
                 </div>
-                <div>
+                <div className="text">
                     <p>Déjenos su comentario</p>
                     <TextField
                         key={`text-flied`}

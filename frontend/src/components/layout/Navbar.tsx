@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, MouseEvent } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout, register } from "../../actions/auth";
@@ -21,6 +21,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import ApiIcon from '@mui/icons-material/Api';
 import { purple, deepPurple } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {login} from '../../actions/auth';
@@ -59,6 +60,8 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout, login, regis
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    let navigate = useNavigate();
+
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -93,7 +96,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout, login, regis
                 <AppBar position="sticky" sx={{bgcolor: 'background.paper'}}>
                     <Container maxWidth="xl">
                         <Toolbar disableGutters>
-                            <AdbIcon
+                            <ApiIcon
                                 sx={{
                                     display: { xs: "none", md: "flex" },
                                     mr: 1,
@@ -112,6 +115,9 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout, login, regis
                                     letterSpacing: ".3rem",
                                     color: "white",
                                     textDecoration: "none",
+                                }}
+                                onClick={()=>{
+                                    return navigate("/");
                                 }}
                             >
                                 Review APP
@@ -163,7 +169,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout, login, regis
                                     ))}
                                 </Menu>
                             </Box>
-                            <AdbIcon
+                            <ApiIcon
                                 sx={{
                                     display: { xs: "flex", md: "none" },
                                     mr: 1,
@@ -184,8 +190,11 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout, login, regis
                                     color: "white",
                                     textDecoration: "none",
                                 }}
+                                onClick={()=>{
+                                    return navigate("/");
+                                }}
                             >
-                                LOGO
+                                Review App
                             </Typography>
                             <Box
                                 sx={{
@@ -217,7 +226,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout, login, regis
                                         >
                                             <Avatar
                                                 alt="Remy Sharp"
-                                                src="/static/images/avatar/2.jpg"
+                                                src="/Imagenes/user.png"
                                             />
                                         </IconButton>
                                     </Tooltip>
@@ -243,7 +252,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout, login, regis
                                                 onClick={handleCloseUserMenu}
                                             >
                                                 <Typography textAlign="center" onClick={()=>{
-                                                    if(setting == 'Logout'){
+                                                    if(setting == 'Salir'){
                                                         logout()
                                                     }
                                                 }}>

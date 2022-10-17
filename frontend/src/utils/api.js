@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { LOGOUT } from '../actions/types';
-const BASE_URL_DERM = `/api`
+const BASE_URL_DERM = `http://localhost:80/api`
 
 const api = axios.create({
     baseURL: BASE_URL_DERM,

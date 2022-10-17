@@ -7,13 +7,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
-
+import getRandomNumber from '../utils/getRandomNumber';
 const MySwal = withReactContent(Swal)
 
 const Movie = ({auth: {isAuthenticated, user}}) => {
     const { id } = useParams();
     const [movie_data, setMovie_data] = useState(null)
     const [comments, setComments] = useState([])
+    
     const getData = async () => {
         try {
             let datos = await api.get(`/movie/${id}`)
@@ -21,6 +22,9 @@ const Movie = ({auth: {isAuthenticated, user}}) => {
             console.log("Que esta pasadno: ", comentarios)
             setMovie_data(datos.data)
             setComments(comentarios.data)
+
+
+            
         } catch (error) {
             var message = error.message
             MySwal.fire({
@@ -44,19 +48,28 @@ const Movie = ({auth: {isAuthenticated, user}}) => {
         
         <div className="grid-movie">
             <div className="title">
-                <h2>{movie_data && movie_data.Title}</h2>
+                <div>Titulo</div>
+                <p>{movie_data && movie_data.Title}</p>
             </div>
             <div className="img">
                 <img src="https://somoskudasai.com/wp-content/uploads/2020/10/Ek9eLUEWAAAs0xd.jpg" alt="" />
             </div>
             <div className="description">
-                {movie_data && movie_data.Description}
+                <div>Descripción</div>
+                <p>{movie_data && movie_data.Description}</p>
+                
             </div>
-            <div className="rating">
-                {comments.reduce((partialSum, a) => partialSum + a.Puntaje, 0)/comments.length}
+            <div className="rating-avg">
+                <div>Puntuación promedio</div>                
+                <p>
+                    {(comments.length == 0)?0:(comments.reduce((partialSum, a) => partialSum + a.Puntaje, 0)/comments.length)}
+                </p>
             </div>
             <div className="fecha">
-                {movie_data && Date.parse(movie_data.UpdatedAt) && movie_data.UpdatedAt.slice(0,10).replace('T', ' ')}
+                <div>Fecha de estreno</div>
+                <p>
+                    {movie_data && Date.parse(movie_data.UpdatedAt) && (new Date(movie_data.UpdatedAt)).getFullYear()}
+                </p>                
             </div>
 
         </div>
