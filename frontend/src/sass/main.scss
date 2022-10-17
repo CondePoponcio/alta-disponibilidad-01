@@ -67,7 +67,10 @@ a {
     background-color: var(--main-container-backgroud-color-app-review);
     //min-height: 100%;
 }
-
+.user_name{
+    color: #fff !important;
+    margin: 0 1rem;
+}
 .movies-tvshow-cards-main-container .movies-tvshow-cards-container {
     display: flex;
     flex-wrap: wrap;

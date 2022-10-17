@@ -24,6 +24,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 
+# Copy default configuration
+COPY ./default.conf /etc/nginx/conf.d/
+
 # Copy static assets from builder stage
 COPY --from=builder /app/build ./
 

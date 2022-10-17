@@ -228,6 +228,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout, login, regis
                                                 alt="Remy Sharp"
                                                 src="/Imagenes/user.png"
                                             />
+                                            <p className="user_name">{user && user.Username}</p>
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
