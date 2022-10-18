@@ -1,5 +1,8 @@
 FROM node:18-alpine3.15 as builder
 
+# Get ARGS
+ARG API_SERVER
+ENV API_SERVER $API_SERVER
 # Setting Time Zone
 ENV TZ=America/Santiago
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -16,6 +19,8 @@ RUN npm run build
 # Nginx state for serving content
 FROM nginx:1.23.1-alpine as prod
 
+# GET ARGS
+ENV API_SERVER $API_SERVER
 # Setting Time Zone
 ENV TZ=America/Santiago
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

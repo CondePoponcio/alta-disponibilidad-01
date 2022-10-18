@@ -23,12 +23,13 @@ services:
             context: ./frontend
             dockerfile: Dockerfile
             target: prod
+            args:
+                API_SERVER: http://${DOMAIN_IP}:${API_PORT}
         image: nginx
         restart: always
         ports:
             - 80:80
-        environment:
-            - API_SERVER=http://backend:${API_PORT}
+        
         
         
 
